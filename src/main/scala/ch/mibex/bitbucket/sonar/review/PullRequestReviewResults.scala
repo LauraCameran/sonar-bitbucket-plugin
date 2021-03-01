@@ -44,10 +44,9 @@ class PullRequestReviewResults(pluginConfiguration: SonarBBPluginConfig) {
   }
 
   private def appendIssueSeverityRemark(markdown: StringBuilder) = {
-    val severityImgMarkdown = SonarUtils.toImageMarkdown(Severity.valueOf(pluginConfiguration.minSeverity()))
     markdown.append(
       s"""Note that only issues with severity >=
-          |$severityImgMarkdown (${pluginConfiguration.minSeverity().toLowerCase})
+          | ${pluginConfiguration.minSeverity().toLowerCase}
           |are reported.""".stripMargin.replaceAll("\n", " ")
     )
   }
@@ -64,7 +63,7 @@ class PullRequestReviewResults(pluginConfiguration: SonarBBPluginConfig) {
   private def printNewIssuesForMarkdown(sb: StringBuilder, severity: Severity) = {
     val issueCount = newIssuesBySeverity(severity)
     if (issueCount > 0) {
-      sb.append(s"* ${SonarUtils.toImageMarkdown(severity)} $issueCount ${severity.toString.toLowerCase}\n")
+      sb.append(s"* $issueCount ${severity.toString.toLowerCase}\n")
     }
   }
 
